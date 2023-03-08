@@ -5,14 +5,14 @@ import '../my_loading_indicator.dart';
 typedef FutureVoidCallback = Future<void> Function();
 
 class LoadingSwitcher extends StatefulWidget {
-  final FutureVoidCallback onPressed;
+  final FutureVoidCallback? onPressed;
   final Widget child;
   final bool isLoading;
   final Widget? loadingChild;
   const LoadingSwitcher({
     super.key,
     this.isLoading = false,
-    required this.onPressed,
+    this.onPressed,
     required this.child,
     this.loadingChild,
   });
@@ -34,7 +34,7 @@ class LoadingSwitcherState extends State<LoadingSwitcher> {
   Future<void> onTap() async {
     try {
       setLoading(true);
-      await widget.onPressed();
+      await widget.onPressed?.call();
       setLoading(false);
     } on Exception {
       setLoading(false);
@@ -66,7 +66,8 @@ class LoadingSwitcherState extends State<LoadingSwitcher> {
     final child = isLoading
         ? widget.loadingChild ?? const MyLoadingIndicator()
         : widget.child;
-    return GestureDetector(
+    return InkWell(
+      splashColor: Colors.grey,
       onTap: isLoading ? null : onTap,
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 200),

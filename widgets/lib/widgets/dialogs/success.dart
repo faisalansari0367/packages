@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:my_theme/my_theme.dart';
 
-import '../../constants/constants.dart';
 import '../buttons/buttons.dart';
 import 'dialog_layout.dart';
 

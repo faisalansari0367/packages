@@ -25,6 +25,13 @@ class MyTheme {
           selectionColor: kPrimaryColor.withOpacity(0.1),
           selectionHandleColor: Colors.black,
         ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: kPrimaryColor,
+            shape: const StadiumBorder(),
+            // padding: const EdgeInsets.all(15),
+          ),
+        ),
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
             foregroundColor: Colors.black,
