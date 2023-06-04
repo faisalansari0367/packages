@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 // Colors
 // const kPrimaryColor = const Color(0xff3B4798);
-const kPrimaryColor = Color(0xff0040DD);
+const kLightGrey = Color(0xffDFDFDF);
+const kPrimaryColor = Color(0xff4176DD);
 const kSecondaryLightColor = Color.fromARGB(255, 255, 202, 96);
 const kSecondaryDarkColor = Color(0xFF404040);
 const kAccentLightColor = Color(0xFFB3BFD7);
@@ -11,7 +12,7 @@ const kBackgroundDarkColor = Color(0xFF3A3A3A);
 const kSurfaceDarkColor = Color(0xFF222225);
 
 //
-const kSplashColor = Color(0xff1E232C);
+const kSplashColor = Color(0xffffffff);
 
 // Icon Colors
 const kAccentIconLightColor = Color(0xFFECEFF5);

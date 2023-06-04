@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 import '../text_fields.dart';
@@ -6,40 +7,40 @@ class MyDropdownField<T> extends StatelessWidget {
   final List<T> items;
   final T? value;
   final String? title;
+  final String Function(T)? labelBuilder;
   final void Function(T?)? onChanged;
+  final bool readOnly;
 
   const MyDropdownField({
-    super.key,
+    Key? key,
     required this.items,
     required this.value,
-    this.onChanged,
     this.title,
-  });
+    this.labelBuilder,
+    this.onChanged,
+    this.readOnly = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return title == null ? _buildDropdown() : _buildDropdownWithTitle();
+    return title == null ? _buildDropdown() : _buildDropdownWithTitle(context);
   }
 
-  Widget _buildTitle() {
+  Widget _buildTitle(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0),
       child: Text(
         title ?? '',
-        style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w700,
-          color: Colors.grey.shade700,
-        ),
+        style: Theme.of(context).textTheme.titleMedium,
       ),
     );
   }
 
-  Widget _buildDropdownWithTitle() {
+  Widget _buildDropdownWithTitle(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildTitle(),
+        _buildTitle(context),
         const SizedBox(height: 10),
         _buildDropdown(),
       ],
@@ -47,17 +48,24 @@ class MyDropdownField<T> extends StatelessWidget {
   }
 
   Widget _buildDropdown() {
-    return Container(
-      padding: const EdgeInsets.only(left: 10, right: 10),
-      decoration: decoration,
-      child: DropdownButton(
-        icon: const Icon(Icons.keyboard_arrow_down_sharp),
-        items: items.map(_dropdownItem).toList(),
-        onChanged: onChanged,
-        isExpanded: true,
-        underline: const SizedBox.shrink(),
-        borderRadius: TextInputDecoration.inputBorderRadius,
-        value: value,
+    return Opacity(
+      opacity: readOnly ? 0.7 : 1.0,
+      child: Container(
+        padding: TextInputDecoration.contentPadding.copyWith(top: 0, bottom: 0),
+        decoration: decoration,
+        child: IgnorePointer(
+          ignoring: readOnly,
+          child: DropdownButton(
+            hint: const Text('Please select'),
+            icon: const Icon(Icons.keyboard_arrow_down_sharp),
+            items: items.map(_dropdownItem).toList(),
+            onChanged: onChanged,
+            isExpanded: true,
+            underline: const SizedBox.shrink(),
+            borderRadius: TextInputDecoration.inputBorderRadius,
+            value: value,
+          ),
+        ),
       ),
     );
   }
@@ -66,7 +74,7 @@ class MyDropdownField<T> extends StatelessWidget {
     return DropdownMenuItem<T>(
       value: e,
       child: Text(
-        e.toString(),
+        labelBuilder?.call(e) ?? e.toString(),
         style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w600,
@@ -77,8 +85,10 @@ class MyDropdownField<T> extends StatelessWidget {
   }
 
   BoxDecoration get decoration => BoxDecoration(
-        color: Colors.grey.shade200,
+        color: TextInputDecoration.inputFillColor,
         border: Border.all(color: Colors.grey.shade400),
-        borderRadius: TextInputDecoration.inputBorderRadius,
+        borderRadius: BorderRadius.circular(
+          TextInputDecoration.inputRadius,
+        ),
       );
 }

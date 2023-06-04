@@ -1,10 +1,10 @@
 // import 'package:background_location/widgets/image/shimmer_animation.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:my_theme/my_theme.dart';
+import 'package:widgets/widgets.dart';
 
 class MyNetworkImage extends StatelessWidget {
-  final String? url;
+  final String? urlToImage;
   final double? borderRadius;
   final bool isLoading, isCircle, useImageBuilder, autoHeight;
   final void Function()? onTap, onLongPress;
@@ -12,13 +12,13 @@ class MyNetworkImage extends StatelessWidget {
   final int? cacheHeight, cacheWidth;
   final Border? border;
   final BoxFit fit;
-  const MyNetworkImage(
-    this.url, {
+  const MyNetworkImage({
     Key? key,
     this.isLoading = false,
     this.isCircle = false,
     this.autoHeight = false,
     this.useImageBuilder = true,
+    this.urlToImage,
     this.height,
     this.onTap,
     this.onLongPress,
@@ -46,7 +46,7 @@ class MyNetworkImage extends StatelessWidget {
         height: height,
         width: width,
         imageBuilder: useImageBuilder ? imageBuilder : null,
-        imageUrl: url ??
+        imageUrl: urlToImage ??
             'https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg',
         // imageUrl: urlToImage!,
       ),

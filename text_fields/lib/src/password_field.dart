@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'package:flutter/material.dart';
 import 'package:validators/validators.dart';
 
@@ -9,15 +11,17 @@ class PasswordField extends StatefulWidget {
   final TextEditingController? controller;
   final String? hintText;
   final TextInputAction textInputAction;
+  final bool hidePrefixIcon;
   const PasswordField({
-    super.key,
-    this.onChanged,
+    Key? key,
     this.onSubmitted,
-    this.controller,
     this.validator,
+    this.controller,
+    this.onChanged,
     this.hintText,
     this.textInputAction = TextInputAction.done,
-  });
+    this.hidePrefixIcon = true,
+  }) : super(key: key);
 
   @override
   State<PasswordField> createState() => _PasswordFieldState();
@@ -43,7 +47,9 @@ class _PasswordFieldState extends State<PasswordField> {
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
         icon: Icon(
-          obscureText ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+          obscureText
+              ? Icons.visibility_outlined
+              : Icons.visibility_off_outlined,
           color: iconColor,
         ),
         onPressed: updateObscureText,
@@ -53,7 +59,8 @@ class _PasswordFieldState extends State<PasswordField> {
       textInputAction: widget.textInputAction,
       textInputType: TextInputType.visiblePassword,
       inputFormatters: const [],
-      prefixIcon: const Icon(Icons.lock_outlined),
+      prefixIcon:
+          widget.hidePrefixIcon ? null : const Icon(Icons.lock_outlined),
     );
   }
 }

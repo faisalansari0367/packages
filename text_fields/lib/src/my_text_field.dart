@@ -68,54 +68,56 @@ class MyTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return TextFormField(
-      initialValue: initialValue,
-      maxLength: maxLength,
-      textCapitalization: textCapitalization,
-      inputFormatters: inputFormatters,
-      focusNode: focusNode,
-      obscureText: obscureText,
-      autovalidateMode: autovalidateMode,
-      enabled: enabled,
-      maxLines: maxLines,
-      minLines: minLine,
-      controller: controller,
-      onChanged: onChanged,
-      onFieldSubmitted: onSubmitted,
-      keyboardType: textInputType,
-      validator: validator ?? Validator.text,
-      textInputAction: textInputAction,
-      buildCounter: _buildCounter,
-      style: style ??
-          const TextStyle(
-            // color: theme.iconTheme.color,
-            // color: theme.primaryColor,
-            fontWeight: FontWeight.bold,
-            // color
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (hintText != null)
+          Text(
+            hintText!,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
-      onTap: onTap,
-      autofocus: autoFocus,
-      readOnly: readOnly,
-      decoration: decoration ?? _inputDecoration(theme),
+        if (hintText != null) const SizedBox(height: 5),
+        TextFormField(
+          initialValue: initialValue,
+          maxLength: maxLength,
+          textCapitalization: textCapitalization,
+          inputFormatters: inputFormatters,
+          focusNode: focusNode,
+          obscureText: obscureText,
+          autovalidateMode: autovalidateMode,
+          enabled: enabled,
+          maxLines: maxLines,
+          minLines: minLine,
+          controller: controller,
+          onChanged: onChanged,
+          onFieldSubmitted: onSubmitted,
+          keyboardType: textInputType,
+          validator: validator ?? Validator.text,
+          textInputAction: textInputAction,
+          buildCounter: _buildCounter,
+          style: style,
+          onTap: onTap,
+          autofocus: autoFocus,
+          readOnly: readOnly,
+          decoration: decoration ?? _inputDecoration(theme),
+        ),
+      ],
     );
   }
 
   InputDecoration _inputDecoration(ThemeData theme) {
     return InputDecoration(
-      labelText: hintText,
-      // contentPadding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
-      contentPadding: contentPadding,
+      // labelText: hintText,
+      contentPadding: contentPadding ?? TextInputDecoration.contentPadding,
       isDense: isDense,
       floatingLabelStyle: TextStyle(
         color: theme.primaryColor,
-        // fontWeight: FontWeight.bold,
       ),
       labelStyle: const TextStyle(),
-
       prefixIconColor: theme.primaryColor,
       prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
-      fillColor: fillColor,
+      fillColor: fillColor ?? TextInputDecoration.inputFillColor,
       hintStyle: hintStyle ?? TextStyle(color: theme.primaryColor),
       filled: filled,
       enabledBorder: TextInputDecoration.inputBorder,

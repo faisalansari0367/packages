@@ -9,8 +9,9 @@ class MyLoadingIndicator extends StatelessWidget {
     return Center(
       child: SizedBox.square(
         dimension: size ?? 20,
-        child: CircularProgressIndicator.adaptive(
+        child: const CircularProgressIndicator.adaptive(
           strokeWidth: 2,
+          valueColor: AlwaysStoppedAnimation(Colors.black),
         ),
       ),
     );

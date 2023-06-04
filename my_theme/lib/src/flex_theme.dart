@@ -8,46 +8,107 @@ class MyTheme {
     borderSide: BorderSide(color: kPrimaryColor), //<-- SEE HERE
   );
 
-  static ThemeData get light => ThemeData(
-        fontFamily: GoogleFonts.nunito().fontFamily,
-        primaryColor: kPrimaryColor,
-        canvasColor: Colors.white,
-        inputDecorationTheme: InputDecorationTheme(
-          enabledBorder: border,
-          focusedBorder: border,
-          border: border,
-          disabledBorder: border.copyWith(
-            borderSide: const BorderSide(color: Colors.grey),
+  static ThemeData light(BuildContext context) {
+    final fontFamily = GoogleFonts.dmSans().fontFamily;
+    return ThemeData(
+      // fontFamily: 'Gilroy',
+      fontFamily: fontFamily,
+      // fontFamily: GoogleFonts.dmSans().fontFamily,
+      primaryColor: kPrimaryColor,
+      canvasColor: Colors.white,
+      inputDecorationTheme: InputDecorationTheme(
+        enabledBorder: border,
+        focusedBorder: border,
+        border: border,
+        disabledBorder: border.copyWith(
+          borderSide: const BorderSide(color: Colors.grey),
+        ),
+      ),
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: kPrimaryColor,
+        selectionColor: kPrimaryColor.withOpacity(0.1),
+        selectionHandleColor: Colors.black,
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: Colors.black,
+          shape: const StadiumBorder(),
+          disabledForegroundColor: Colors.black.withOpacity(0.38),
+          surfaceTintColor: Colors.black,
+          padding: const EdgeInsets.all(15),
+          side: BorderSide(
+            color: Colors.grey.shade100,
+            width: 1.5,
           ),
         ),
-        textSelectionTheme: TextSelectionThemeData(
-          cursorColor: kPrimaryColor,
-          selectionColor: kPrimaryColor.withOpacity(0.1),
-          selectionHandleColor: Colors.black,
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: kPrimaryColor,
-            shape: const StadiumBorder(),
-            // padding: const EdgeInsets.all(15),
-          ),
-        ),
-        outlinedButtonTheme: OutlinedButtonThemeData(
-          style: OutlinedButton.styleFrom(
-            foregroundColor: Colors.black,
-            shape: const StadiumBorder(),
-            disabledForegroundColor: Colors.black.withOpacity(0.38),
-            surfaceTintColor: Colors.black,
-            padding: const EdgeInsets.all(15),
-            side: BorderSide(
-              color: Colors.grey.shade100,
-              width: 1.5,
+      ),
+      textTheme: Theme.of(context).textTheme.copyWith(
+            titleMedium: TextStyle(
+              color: Colors.black,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              fontFamily: fontFamily,
+            ),
+            titleLarge: TextStyle(
+              // color: Colors.black,
+              // fontSize: 16,
+              // fontWeight: FontWeight.w600,
+              fontFamily: fontFamily,
+            ),
+            bodyLarge: TextStyle(
+              fontFamily: fontFamily,
+            ),
+            bodyMedium: TextStyle(
+              fontFamily: fontFamily,
+            ),
+            bodySmall: TextStyle(
+              fontFamily: fontFamily,
+            ),
+            displayLarge: TextStyle(
+              fontFamily: fontFamily,
+            ),
+            displayMedium: TextStyle(
+              fontFamily: fontFamily,
+            ),
+            displaySmall: TextStyle(
+              fontFamily: fontFamily,
+            ),
+            labelLarge: TextStyle(
+              fontFamily: fontFamily,
+            ),
+            labelMedium: TextStyle(
+              fontFamily: fontFamily,
+            ),
+            labelSmall: TextStyle(
+              fontFamily: fontFamily,
             ),
           ),
+      // textTheme: TextTheme(
+
+      //   titleMedium: TextStyle(
+      //     color: Colors.black,
+      //     fontSize: 16,
+      //     fontWeight: FontWeight.w600,
+      //     fontFamily: fontFamily,
+      //   ),
+      //   titleLarge: TextStyle(
+      //     // color: Colors.black,
+      //     // fontSize: 16,
+      //     // fontWeight: FontWeight.w600,
+      //     fontFamily: fontFamily,
+      //   ),
+      // ),
+      checkboxTheme: CheckboxThemeData(
+        fillColor: MaterialStateProperty.all(kPrimaryColor),
+        checkColor: MaterialStateProperty.all(Colors.white),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(4)),
         ),
-        colorScheme: ThemeData.light().colorScheme.copyWith(
-              secondary: kSecondaryLightColor,
-              background: kPrimaryColor,
-            ),
-      );
+      ),
+      colorScheme: ThemeData.light().colorScheme.copyWith(
+            secondary: kPrimaryColor,
+            background: kPrimaryColor,
+          ),
+    );
+  }
 }

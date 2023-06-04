@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:my_theme/my_theme.dart';
 
+import '../../constants/constants.dart';
 import '../buttons/buttons.dart';
 import 'dialog_layout.dart';
 
@@ -23,10 +23,13 @@ class SuccessDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Lottie.asset('assets/animations/success.json'),
+            LottieBuilder.asset(
+              'assets/animations/success.json',
+            ),
             const Gap(20),
             Text(
               message ?? 'Success',
+              textAlign: TextAlign.center,
               style: context.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
               ),

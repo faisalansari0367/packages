@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:my_theme/my_theme.dart';
 import 'package:widgets/widgets.dart';
+import 'package:widgets/widgets/my_loading_indicator.dart';
 
 class MyElevatedButton extends StatelessWidget {
   final Widget? child;
@@ -13,6 +13,7 @@ class MyElevatedButton extends StatelessWidget {
   final EdgeInsets? padding;
   final EdgeInsets? margin;
   final double? width, height;
+  final Color? border;
 
   const MyElevatedButton({
     super.key,
@@ -26,6 +27,7 @@ class MyElevatedButton extends StatelessWidget {
     this.height,
     this.width,
     this.margin,
+    this.border,
   }) : assert(text != null || child != null);
 
   @override
@@ -44,6 +46,7 @@ class MyElevatedButton extends StatelessWidget {
       width: width,
       height: height,
       margin: margin,
+      border: border,
       child: _getChild(),
     );
   }
@@ -55,11 +58,11 @@ class MyElevatedButton extends StatelessWidget {
       width: width,
       height: height,
       margin: margin,
-      child: _showLoading(),
+      child: const MyLoadingIndicator(),
     );
   }
 
-  Future<void> Function()? get _getOnTap {
+  FutureVoidCallback? get _getOnTap {
     if (isDisabled || isLoading) return null;
     return onPressed;
   }
@@ -78,13 +81,7 @@ class MyElevatedButton extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: const [
-        SizedBox(
-          height: 20,
-          width: 20,
-          child: CircularProgressIndicator.adaptive(
-            strokeWidth: 2,
-          ),
-        )
+        MyLoadingIndicator(),
       ],
     );
   }
@@ -98,11 +95,16 @@ class MyElevatedButton extends StatelessWidget {
   }
 
   Text _showText() {
-    Color color = Colors.white;
+    Color color = this.color ?? Colors.white;
 
     if (isDisabled) {
       color = Get.theme.disabledColor.withOpacity(0.40);
     }
+
+    if (this.color != null) {
+      color = color.computeLuminance() > 0.5 ? Colors.black : Colors.white;
+    }
+
     return Text(
       text!,
       style: TextStyle(
@@ -121,15 +123,17 @@ class _MyElevatedButtonLayout extends StatelessWidget {
   final Widget child;
   final EdgeInsets? padding;
   final EdgeInsets? margin;
+  final Color? border;
 
   const _MyElevatedButtonLayout({
     Key? key,
     this.width,
     this.height,
     this.color,
+    required this.child,
     this.padding,
     this.margin,
-    required this.child,
+    this.border,
   }) : super(key: key);
 
   @override
@@ -150,6 +154,9 @@ class _MyElevatedButtonLayout extends StatelessWidget {
     return BoxDecoration(
       color: color,
       borderRadius: kBorderRadius,
+      border: Border.all(
+        color: border ?? Colors.transparent,
+      ),
     );
   }
 }

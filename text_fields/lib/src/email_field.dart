@@ -13,15 +13,18 @@ class EmailField extends StatelessWidget {
   final void Function(String)? onChanged, onSubmitted;
   final InputDecoration? inputDecoration;
   final bool readOnly;
+  final bool hidePrefixIcon;
   const EmailField({
     super.key,
+    this.hidePrefixIcon = true,
     this.controller,
     this.onChanged,
     this.focusNode,
     this.label,
     this.onSubmitted,
     this.inputDecoration,
-    this.readOnly = false, this.initialValue,
+    this.readOnly = false,
+    this.initialValue,
   });
 
   @override
@@ -40,7 +43,7 @@ class EmailField extends StatelessWidget {
       validator: Validator.email,
       textInputAction: TextInputAction.next,
       textInputType: TextInputType.emailAddress,
-      prefixIcon: const Icon(Icons.email_outlined),
+      prefixIcon: hidePrefixIcon ? null : const Icon(Icons.email_outlined),
     );
   }
 }

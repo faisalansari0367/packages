@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_theme/my_theme.dart';
 import 'package:widgets/widgets.dart';
 
 class DecoratedContainer extends StatelessWidget {
@@ -8,15 +7,16 @@ class DecoratedContainer extends StatelessWidget {
   final double? width;
   final Color? color;
   final EdgeInsets? padding, margin;
-  final BoxDecoration? decoration;
+  final Decoration? decoration;
   const DecoratedContainer({
     super.key,
     required this.child,
     this.color,
+    this.decoration,
     this.height,
     this.width,
     this.padding,
-    this.margin, this.decoration,
+    this.margin,
   });
 
   @override
@@ -28,7 +28,7 @@ class DecoratedContainer extends StatelessWidget {
       curve: kCurve,
       margin: margin,
       padding: padding ?? kPadding,
-      decoration: decoration ?? MyDecoration.decoraion().copyWith(color: color),
+      decoration: decoration ?? MyDecoration.decoraion(),
       child: child,
     );
   }

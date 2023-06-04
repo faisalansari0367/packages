@@ -20,17 +20,20 @@ class ErrorDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return DialogLayout(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Lottie.asset(
-            'assets/animations/error.json',
-            fit: BoxFit.contain,
-            height: 200,
-            width: 100,
+          const Gap(20),
+          Center(
+            child: Lottie.asset(
+              'assets/animations/error.json',
+              height: 100,
+              // width: 50,
+              fit: BoxFit.cover,
+            ),
           ),
+          const Gap(20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
@@ -42,7 +45,7 @@ class ErrorDialog extends StatelessWidget {
           const Gap(20),
           MyElevatedButton(
             text: buttonText ?? ('Continue'),
-            width: size.width * 0.30,
+            width: (MediaQuery.of(context).size).width * 0.30,
             color: const Color.fromARGB(255, 255, 17, 0),
             padding: const EdgeInsets.all(10),
             onPressed: () async {

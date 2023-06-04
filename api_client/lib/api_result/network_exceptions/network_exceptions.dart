@@ -95,7 +95,8 @@ abstract class NetworkExceptions with _$NetworkExceptions {
                 //   networkExceptions = NetworkExceptions.unauthorisedRequest();
                 // break;
                 case 404:
-                  networkExceptions = const NetworkExceptions.notFound();
+                  networkExceptions = parseErrorMsg(error.response) ??
+                      const NetworkExceptions.notFound();
                   break;
                 case 409:
                   networkExceptions = const NetworkExceptions.conflict();
@@ -217,6 +218,16 @@ abstract class NetworkExceptions with _$NetworkExceptions {
         return const NetworkExceptions.unexpectedError();
       }
     }
+  }
+
+  static NetworkExceptions? parseErrorMsg(Response? response) {
+    NetworkExceptions? networkExceptions;
+    final map = response?.data as Map;
+    if (map.containsKey('message')) {
+      networkExceptions = NetworkExceptions.defaultError(
+          map['message'] ?? 'Something went wrong');
+    }
+    return networkExceptions;
   }
 
   static String getErrorMessage(NetworkExceptions networkExceptions) {

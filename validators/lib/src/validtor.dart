@@ -3,13 +3,20 @@ import 'package:form_validator/form_validator.dart';
 
 class Validator {
   static String? email(String? value) {
+    if (value?.trim().isEmpty ?? true) return 'This field is required';
     final isValidated = EmailValidator.validate(value?.trim() ?? '');
     final result = isValidated ? null : 'Email is not valid';
     return result;
   }
 
   static String? password(String? value) {
-    final validate = ValidationBuilder().minLength(4).maxLength(10).build();
+    final validate = ValidationBuilder().minLength(4).build();
+    final result = validate(value);
+    return result;
+  }
+
+  static String? pinCode(String? value) {
+    final validate = ValidationBuilder().minLength(6).build();
     final result = validate(value);
     return result;
   }
@@ -63,6 +70,9 @@ class Validator {
   }
 
   static String? mobileNo(String? value) {
+    if (value != null) {
+      if (value.length < 10) return 'Mobile number needs to be of 10 digits';
+    }
     final validate = ValidationBuilder().phone('Mobile is not valid').build();
     final result = validate(value);
     return result;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_theme/my_theme.dart';
+import 'package:widgets/widgets.dart';
 
 class MyAssetImage extends StatelessWidget {
   final String path;

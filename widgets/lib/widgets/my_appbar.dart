@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_theme/my_theme.dart';
 import 'package:widgets/widgets.dart';
 
 class MyAppBar extends StatelessWidget with PreferredSizeWidget {
@@ -25,8 +24,8 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
     this.bottom,
     this.onBackPressed,
     this.leading,
-    this.showDivider = false,
-    this.centreTitle = false,
+    this.showDivider = true,
+    this.centreTitle = true,
   });
 
   @override
@@ -38,19 +37,7 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
         : Colors.white;
     final leadingArrow = _leadingIcon(context, color);
     return Theme(
-      data: Theme.of(context).copyWith(
-        appBarTheme: AppBarTheme(
-          color: backgroundColor,
-          elevation: elevation,
-          iconTheme: IconThemeData(
-            color: iconColor,
-          ),
-          titleTextStyle: TextStyle(
-            color: color,
-            fontSize: 20,
-          ),
-        ),
-      ),
+      data: _themeData(context, color),
       child: AppBar(
         centerTitle: centreTitle,
         backgroundColor: backgroundColor ?? Colors.white,
@@ -64,15 +51,33 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
     );
   }
 
+  ThemeData _themeData(BuildContext context, Color color) {
+    return Theme.of(context).copyWith(
+      appBarTheme: AppBarTheme(
+        color: backgroundColor,
+        elevation: elevation,
+        iconTheme: IconThemeData(
+          color: iconColor,
+        ),
+        titleTextStyle: TextStyle(
+          color: color,
+          fontSize: 20,
+          fontFamily: context.textTheme.bodyMedium?.fontFamily,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  }
+
   Widget _leadingIcon(BuildContext context, Color color) {
     return Container(
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.only(left: 8),
-      decoration: BoxDecoration(
-        borderRadius: kBorderRadius,
-        shape: BoxShape.rectangle,
-        border: Border.all(color: Colors.grey.shade200),
-      ),
+      // decoration: BoxDecoration(
+      //   borderRadius: kBorderRadius,
+      //   shape: BoxShape.rectangle,
+      //   border: Border.all(color: Colors.grey.shade200),
+      // ),
       child: GestureDetector(
         onTap: onBackPressed ?? Get.back,
         child: Icon(

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:widgets/widgets.dart';
 
-import 'dialog_layout.dart';
-
 class StatusDialog extends StatelessWidget {
   final String lottieAsset;
   final String message;
@@ -36,7 +34,7 @@ class StatusDialog extends StatelessWidget {
           const Gap(20),
           MyElevatedButton(
             text: ('Continue'),
-            width: context.size!.width * 0.3,
+            width: MediaQuery.of(context).size.width * 0.3,
             // height: 40.h,
 
             padding: const EdgeInsets.all(10),
